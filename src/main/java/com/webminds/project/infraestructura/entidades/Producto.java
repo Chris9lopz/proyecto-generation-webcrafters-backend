@@ -1,7 +1,8 @@
-package com.webminds.project.entities;
+package com.webminds.project.infraestructura.entidades;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,10 +12,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Usuario {
+public class Producto {
     @Id
-    @GeneratedValue
-    private Integer usuarioID;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer productoID;
     private String nombre;
-    private String correo;
+    private Double precio;
+    private Integer categoriaID;
+
 }
