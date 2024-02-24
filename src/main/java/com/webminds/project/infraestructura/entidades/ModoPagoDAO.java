@@ -1,21 +1,22 @@
 package com.webminds.project.infraestructura.entidades;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
+@Entity(name = "modos_pago")
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-public class ModoPago {
+public class ModoPagoDAO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer pagoID;
+    private Integer pagoId;
     private String nombre;
+
+    public ModoPagoDAO(Integer pagoId, String nombre) {
+        this.pagoId = pagoId;
+        this.nombre = nombre;
+    }
 }

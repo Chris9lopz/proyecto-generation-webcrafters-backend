@@ -1,6 +1,11 @@
 package com.webminds.project.controller;
 
 import com.webminds.project.core.entidades.FacturaDTO;
+import com.webminds.project.core.entidades.comandos.FacturaPeticionDTO;
+import com.webminds.project.core.entidades.consultas.FacturaConsultaDTO;
+import com.webminds.project.core.entidades.consultas.ProductoEnFacturaConsultaDTO;
+import com.webminds.project.core.excepciones.ModoPagoNoExisteException;
+import com.webminds.project.core.excepciones.ProductoNoExisteException;
 import com.webminds.project.core.servicios.FacturaServicio;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,15 +29,19 @@ public class FacturaController {
     }
 
     @GetMapping("/{userId}/{facturaId}")
-    public ResponseEntity<FacturaDTO> mostrarFacturaDelCliente(@PathVariable Integer facturaId, @PathVariable String userId){
+    public ResponseEntity<FacturaConsultaDTO> mostrarFacturaDelCliente(@PathVariable Integer facturaId, @PathVariable String userId){
         return facturaServicio
                 .buscarFacturaPorCliente(facturaId,userId).map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<FacturaDTO> crearFactura(@RequestBody FacturaDTO facturaDTO){
-        return new ResponseEntity<>(facturaServicio.crearFactura(facturaDTO), HttpStatus.CREATED) ;
+    public ResponseEntity<?>  crearFactura(@RequestBody FacturaPeticionDTO facturaPeticionDTO)  {
+        try {
+            return new ResponseEntity<>(facturaServicio.crearFactura(facturaPeticionDTO), HttpStatus.CREATED) ;
+        } catch (ModoPagoNoExisteException | ProductoNoExisteException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @PutMapping
