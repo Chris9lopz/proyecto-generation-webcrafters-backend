@@ -22,7 +22,7 @@ public class ProductosEnFacturaMapper {
     }
 
     public static ProductoEnFacturaConsultaDTO pasarAProductoEnFacturaConsultaDTO(ProductoFacturaDAO productoFacturaDAO) {
-        return new ProductoEnFacturaConsultaDTO(ProductoMapper.pasarAProductoDTO(productoFacturaDAO.getProductoDAO()),
+        return new ProductoEnFacturaConsultaDTO(ProductoMapper.pasarAProductoConsultaDTO(productoFacturaDAO.getProductoDAO()),
                 productoFacturaDAO.getCantidad());
     }
 }

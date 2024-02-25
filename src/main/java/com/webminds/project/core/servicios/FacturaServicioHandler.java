@@ -39,12 +39,12 @@ public class FacturaServicioHandler implements FacturaServicio {
     }
 
     @Override
-    public List<FacturaDTO> buscarFacturasPorCliente(String userId) {
+    public List<FacturaConsultaDTO> buscarFacturasPorCliente(String userId) {
         return facturaRepository
                 .buscarFacturasPorCliente(userId)
                 .stream()
-                .map(FacturaMapper::pasarADTO)
-                .collect(Collectors.toList());
+                .map(FacturaMapper::pasarAConsultaDTO)
+                .toList();
     }
 
     @Override
@@ -54,15 +54,16 @@ public class FacturaServicioHandler implements FacturaServicio {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public FacturaDTO crearFactura(FacturaPeticionDTO facturaPeticionDTO) throws ModoPagoNoExisteException,ProductoNoExisteException {
+    public FacturaConsultaDTO crearFactura(FacturaPeticionDTO facturaPeticionDTO) throws ModoPagoNoExisteException,ProductoNoExisteException {
         FacturaDAO facturaDAO = new FacturaDAO();
         facturaDAO.setFecha(LocalDate.now());
         facturaDAO.setUsuarioId(facturaPeticionDTO.getUsuarioId());
         facturaDAO.setModoPagoDAO(consultarModoDePago(facturaPeticionDTO));
         FacturaDAO facturaAlmacenada = facturaRepository.save(facturaDAO);
         List<ProductoFacturaDAO> productosEnFactura = obtenerProductos(facturaPeticionDTO, facturaAlmacenada);
+        facturaAlmacenada.setProductosEnFactura(productosEnFactura);
         productoEnFacturaRepositorio.saveAll(productosEnFactura);
-        return FacturaMapper.pasarADTO(facturaAlmacenada);
+        return FacturaMapper.pasarAConsultaDTO(facturaAlmacenada);
     }
 
     @Transactional(rollbackFor = Exception.class)

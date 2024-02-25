@@ -11,11 +11,11 @@ import java.util.Optional;
 
 public interface FacturaServicio {
 
-    List<FacturaDTO> buscarFacturasPorCliente(String userId);
+    List<FacturaConsultaDTO> buscarFacturasPorCliente(String userId);
 
     Optional<FacturaConsultaDTO> buscarFacturaPorCliente(Integer facturaId, String userId);
 
-    FacturaDTO crearFactura(FacturaPeticionDTO facturaDTO) throws ModoPagoNoExisteException, ProductoNoExisteException;
+    FacturaConsultaDTO crearFactura(FacturaPeticionDTO facturaDTO) throws ModoPagoNoExisteException, ProductoNoExisteException;
 
     Optional<FacturaDTO> actualizarFactura(FacturaDTO facturaDTO);
 

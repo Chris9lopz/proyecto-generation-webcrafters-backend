@@ -33,7 +33,7 @@ public class FacturaMapper {
                 .stream()
                 .map(ProductosEnFacturaMapper::pasarAProductoEnFacturaConsultaDTO)
                 .toList());
-        facturaConsultaDTO.setPrecioTotal(facturaDAO.getProductosEnFactura().stream().mapToDouble((productoFacturaDAO)->
+        facturaConsultaDTO.setPrecioTotal(facturaDAO.getProductosEnFactura().stream().mapToDouble(productoFacturaDAO->
                 productoFacturaDAO.getProductoDAO().getPrecio()*productoFacturaDAO.getCantidad()).sum());
         return facturaConsultaDTO;
     }

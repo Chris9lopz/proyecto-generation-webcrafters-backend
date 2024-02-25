@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("api/v1/facturas")
 public class FacturaController {
 
@@ -24,7 +25,7 @@ public class FacturaController {
     }
 
     @GetMapping("/{userId}")
-    public List<FacturaDTO> mostrarFacturasDeCliente(@PathVariable String userId){
+    public List<FacturaConsultaDTO> mostrarFacturasDeCliente(@PathVariable String userId){
         return facturaServicio.buscarFacturasPorCliente(userId);
     }
 

@@ -1,5 +1,6 @@
 package com.webminds.project.core.entidades.consultas;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,6 +22,7 @@ public class FacturaConsultaDTO {
     private String usuarioId;
 
     private Double precioTotal;
+
 
     private List<ProductoEnFacturaConsultaDTO> productosEnFactura = new ArrayList<>();
 }

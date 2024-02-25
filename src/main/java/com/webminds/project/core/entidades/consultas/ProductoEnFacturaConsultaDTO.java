@@ -1,6 +1,6 @@
 package com.webminds.project.core.entidades.consultas;
 
-import com.webminds.project.core.entidades.ProductoDTO;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductoEnFacturaConsultaDTO {
-    private ProductoDTO productoDTO;
+    @JsonProperty("producto")
+    private ProductoConsultaDTO productoConsultaDTO;
     private Integer cantidad;
 }
